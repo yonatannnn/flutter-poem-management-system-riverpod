@@ -3,8 +3,8 @@
 |:-|:---|:-|
 |1 |Aderajew Yeshiwendm|UGR/3662/14|
 |2 |Birhanu Asmamaw|UGR/2204/13|
-|3 |MESAY ABEBE|UGR/1930/14|
-|4 |YONATAN ALEBACHEW|UGR/4429/14|
+|3 |Mesay Abebe|UGR/1930/14|
+|4 |Yonatan Alebachew|UGR/4429/14|
 
 # what the system do:
 ## Authentication, Authorization, User Registration, Role Assignment,
