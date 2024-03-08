@@ -7,10 +7,10 @@
 |4 |YONATAN ALEBACHEW|UGR/4429/14|
 
 # what the system do:
-# Authentication, Authorization, User Registration, Role Assignment,
+## Authentication, Authorization, User Registration, Role Assignment,
 
-# feature 1 admin can create,edit,delete,view poems
-# feature 2 users can create,edit,delete,view poems in their favorite page
+## feature 1 admin can create,edit,delete,view poems
+## feature 2 users can create,edit,delete,view poems in their favorite page
 
 Description
 
