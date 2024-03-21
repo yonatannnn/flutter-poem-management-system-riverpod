@@ -1,11 +1,31 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:poem/screens/login_page.dart';
 import 'package:poem/screens/sign_up_page.dart';
 import 'package:poem/widgets/custom_button.dart';
 import 'package:poem/widgets/custom_widget.dart';
 
-class Welcome extends StatelessWidget {
-  const Welcome({super.key});
+class Welcome extends StatefulWidget {
+  const Welcome({Key? key}) : super(key: key);
+
+  @override
+  _WelcomeState createState() => _WelcomeState();
+}
+
+class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
+  AnimationController? _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 7),
+    );
+    _controller!.repeat();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomWidget(
@@ -37,14 +57,23 @@ class Welcome extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Text(
-                    'Let\'s know you',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 66, 249),
-                      fontSize: 40,
-                      fontWeight: FontWeight.w900,
+                  AnimatedBuilder(
+                    animation: _controller!.view,
+                    builder: (_builderContext, _child) {
+                      return Transform.rotate(
+                        angle: _controller!.value * 2 * pi,
+                        child: _child,
+                      );
+                    },
+                    child: const Text(
+                      'Let\'s know you',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 0, 66, 249),
+                        fontSize: 40,
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
