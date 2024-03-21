@@ -50,6 +50,10 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     TextFormField(
                       decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.person,
+                          color: Colors.blue,
+                        ),
                         labelText: 'Username',
                         labelStyle: TextStyle(
                           fontSize: 20,
@@ -79,6 +83,10 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     TextFormField(
                       decoration: InputDecoration(
+                          prefixIcon: const Icon(
+                            Icons.lock,
+                            color: Colors.red,
+                          ),
                           labelText: 'Password',
                           labelStyle: TextStyle(
                             fontWeight: FontWeight.bold,

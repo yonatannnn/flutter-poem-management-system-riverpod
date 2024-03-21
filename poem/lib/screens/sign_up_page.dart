@@ -51,6 +51,10 @@ class _SignUpState extends State<SignUp> {
                     ),
                     TextFormField(
                       decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.person,
+                          color: Colors.blue,
+                        ),
                         labelText: 'Username',
                         labelStyle: TextStyle(
                           fontSize: 20,
@@ -80,6 +84,10 @@ class _SignUpState extends State<SignUp> {
                     ),
                     TextFormField(
                       decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.email,
+                          color: Colors.green,
+                        ),
                         labelText: 'Email',
                         labelStyle: TextStyle(
                           fontSize: 20,
@@ -109,6 +117,10 @@ class _SignUpState extends State<SignUp> {
                     ),
                     TextFormField(
                       decoration: InputDecoration(
+                          prefixIcon: const Icon(
+                            Icons.lock,
+                            color: Colors.red,
+                          ),
                           labelText: 'Password',
                           labelStyle: TextStyle(
                             fontWeight: FontWeight.bold,
