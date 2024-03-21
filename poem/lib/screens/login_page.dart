@@ -68,6 +68,9 @@ class _LoginPageState extends State<LoginPage> {
                                 const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
                         ),
                       ),
+                      style: const TextStyle(
+                        color: Colors.black87,
+                      ),
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter your username';
@@ -83,23 +86,27 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     TextFormField(
                       decoration: InputDecoration(
-                          prefixIcon: const Icon(
-                            Icons.lock,
-                            color: Colors.red,
-                          ),
-                          labelText: 'Password',
-                          labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            foreground: Paint()
-                              ..shader = const LinearGradient(
-                                colors: [Colors.black54, Colors.white],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                stops: [0.0, 1.0],
-                              ).createShader(
-                                  const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
-                          )),
+                        prefixIcon: const Icon(
+                          Icons.lock,
+                          color: Colors.red,
+                        ),
+                        labelText: 'Password',
+                        labelStyle: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          foreground: Paint()
+                            ..shader = const LinearGradient(
+                              colors: [Colors.black54, Colors.white],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              stops: [0.0, 1.0],
+                            ).createShader(
+                                const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
+                        ),
+                      ),
+                      style: const TextStyle(
+                        color: Colors.black87,
+                      ),
                       obscureText: true,
                       validator: (value) {
                         if (value!.isEmpty) {
