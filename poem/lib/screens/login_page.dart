@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poem/screens/home_page.dart';
 import 'package:poem/widgets/custom_widget.dart';
 
 class LoginPage extends StatefulWidget {
@@ -127,10 +128,9 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   // API calls here.
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Form submitted'),
-                    ),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
                   );
                 }
               },
