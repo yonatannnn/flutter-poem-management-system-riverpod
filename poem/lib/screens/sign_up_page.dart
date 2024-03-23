@@ -17,6 +17,7 @@ class _SignUpState extends State<SignUp> {
         color: Colors.blue,
       ),
       labelText: 'Username',
+      border: const OutlineInputBorder(),
       labelStyle: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w900,
@@ -47,6 +48,7 @@ class _SignUpState extends State<SignUp> {
         color: Colors.green,
       ),
       labelText: 'Email',
+      border: const OutlineInputBorder(),
       labelStyle: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w800,
@@ -77,6 +79,7 @@ class _SignUpState extends State<SignUp> {
         color: Colors.red,
       ),
       labelText: 'Password',
+      border: const OutlineInputBorder(),
       labelStyle: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 20,
@@ -113,11 +116,11 @@ class _SignUpState extends State<SignUp> {
           const Expanded(
             flex: 1,
             child: SizedBox(
-              height: 12,
+              height: 5,
             ),
           ),
           Expanded(
-            flex: 7,
+            flex: 8,
             child: Container(
               padding: const EdgeInsets.only(left: 22),
               decoration: const BoxDecoration(
@@ -150,7 +153,9 @@ class _SignUpState extends State<SignUp> {
             ),
           ),
           username,
+          const Padding(padding: EdgeInsets.all(4.0)),
           email,
+          const Padding(padding: EdgeInsets.all(3.0)),
           password,
           const SizedBox(height: 15),
           Center(

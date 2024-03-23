@@ -18,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
         color: Colors.red,
       ),
       labelText: 'Password',
+      border: const OutlineInputBorder(),
       labelStyle: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 20,
@@ -50,6 +51,7 @@ class _LoginPageState extends State<LoginPage> {
         color: Colors.blue,
       ),
       labelText: 'Username',
+      border: const OutlineInputBorder(),
       labelStyle: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w800,
@@ -79,9 +81,9 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         children: [
           const Expanded(
-            flex: 2,
+            flex: 1,
             child: SizedBox(
-              height: 32,
+              height: 12,
             ),
           ),
           _expandedForm(context),
@@ -121,6 +123,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           username,
+          const Padding(padding: EdgeInsets.all(4.0)),
           password,
           const SizedBox(height: 20),
           Center(
