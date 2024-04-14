@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:poem/screens/mixin/validator.dart';
 
 class Email extends StatefulWidget {
   final Function(String) onEmailChanged;

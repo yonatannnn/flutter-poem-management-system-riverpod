@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poem/screens/login_page.dart';
-import 'package:poem/screens/mixin/validator.dart';
+import '../widgets/mixin/validator.dart';
 import 'package:poem/widgets/custom_widget.dart';
 import 'package:poem/widgets/password.dart';
 import 'package:poem/widgets/role.dart';
