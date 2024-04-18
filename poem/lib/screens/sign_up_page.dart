@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:poem/screens/login_page.dart';
 import 'package:poem/widgets/custom_widget.dart';
+import 'package:poem/widgets/mixin/validator.dart';
+import 'package:poem/widgets/password.dart';
+import 'package:poem/widgets/role.dart';
+import 'package:poem/widgets/username.dart';
+
+import '../widgets/email.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -8,105 +15,11 @@ class SignUp extends StatefulWidget {
   State<SignUp> createState() => _SignUpState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _SignUpState extends State<SignUp> with ValidationMixin {
   final _formKey = GlobalKey<FormState>();
-  final username = TextFormField(
-    decoration: InputDecoration(
-      prefixIcon: const Icon(
-        Icons.person,
-        color: Colors.blue,
-      ),
-      labelText: 'Username',
-      border: const OutlineInputBorder(),
-      labelStyle: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w900,
-        foreground: Paint()
-          ..shader = const LinearGradient(
-            colors: [Colors.black87, Colors.yellow],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0.0, 1.0],
-          ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
-      ),
-    ),
-    style: const TextStyle(
-      color: Colors.black87,
-    ),
-    validator: (value) {
-      if (value!.isEmpty) {
-        return 'Please enter your username';
-      }
-      // add more complex username validation logic here
-      return null;
-    },
-  );
-  final email = TextFormField(
-    decoration: InputDecoration(
-      prefixIcon: const Icon(
-        Icons.email,
-        color: Colors.green,
-      ),
-      labelText: 'Email',
-      border: const OutlineInputBorder(),
-      labelStyle: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w800,
-        foreground: Paint()
-          ..shader = const LinearGradient(
-            colors: [Colors.blue, Colors.green],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0.0, 1.0],
-          ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
-      ),
-    ),
-    style: const TextStyle(
-      color: Colors.black87,
-    ),
-    validator: (value) {
-      if (value!.isEmpty) {
-        return 'Please enter your email';
-      }
-      // add more complex email validation logic here
-      return null;
-    },
-  );
-  final password = TextFormField(
-    decoration: InputDecoration(
-      prefixIcon: const Icon(
-        Icons.lock,
-        color: Colors.red,
-      ),
-      labelText: 'Password',
-      border: const OutlineInputBorder(),
-      labelStyle: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 20,
-        foreground: Paint()
-          ..shader = const LinearGradient(
-            colors: [
-              Color.fromARGB(255, 33, 240, 243),
-              Color.fromARGB(255, 175, 97, 76)
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0.0, 1.0],
-          ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
-      ),
-    ),
-    style: const TextStyle(
-      color: Colors.black87,
-    ),
-    obscureText: true,
-    validator: (value) {
-      if (value!.isEmpty) {
-        return 'Please enter your password';
-      }
-      //add more complex password validation logic here
-      return null;
-    },
-  );
+  String? selectedRole;
+  String? role;
+
   @override
   Widget build(BuildContext context) {
     return CustomWidget(
@@ -120,7 +33,7 @@ class _SignUpState extends State<SignUp> {
             ),
           ),
           Expanded(
-            flex: 8,
+            flex: 9,
             child: Container(
               padding: const EdgeInsets.only(left: 22),
               decoration: const BoxDecoration(
@@ -139,80 +52,181 @@ class _SignUpState extends State<SignUp> {
 
   Form _formMethod(BuildContext context) {
     return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          const Text(
-            'Welcome to a Poetry Haven!',
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 25,
-              fontWeight: FontWeight.w900,
-            ),
-          ),
-          username,
-          const Padding(padding: EdgeInsets.all(4.0)),
-          email,
-          const Padding(padding: EdgeInsets.all(3.0)),
-          password,
-          const SizedBox(height: 15),
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  //  API calls here.
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Form submitted'),
-                    ),
-                  );
-                }
-              },
-              child: const Text('Sign Up'),
-            ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Divider(
-                  thickness: 0.8,
-                  color: Colors.grey.withOpacity(0.6),
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              const SizedBox(
+                height: 30,
+              ),
+              const Text(
+                'Welcome to a Poetry Haven!',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 25,
+                  fontWeight: FontWeight.w900,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 0,
-                  horizontal: 10,
-                ),
-                child: Text(
-                  'sign up with',
-                  style: TextStyle(
-                    color: Colors.black87,
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Text(
+                    'Username ',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      foreground: Paint()
+                        ..shader = const LinearGradient(
+                          colors: [Colors.black87, Colors.yellow],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: [0.0, 1.0],
+                        ).createShader(
+                            const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
+                    ),
+                  ),
+                  const Text(
+                    '*',
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                ],
+              ),
+              const Username(),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Text(
+                    'Email ',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      foreground: Paint()
+                        ..shader = const LinearGradient(
+                          colors: [Colors.black87, Colors.yellow],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: [0.0, 1.0],
+                        ).createShader(
+                            const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
+                    ),
+                  ),
+                  const Text(
+                    '*',
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                ],
+              ),
+              Email(
+                onEmailChanged: (String) {},
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Text(
+                    'Password ',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      foreground: Paint()
+                        ..shader = const LinearGradient(
+                          colors: [Colors.black87, Colors.yellow],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: [0.0, 1.0],
+                        ).createShader(
+                            const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
+                    ),
+                  ),
+                  const Text(
+                    '*',
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                ],
+              ),
+              const Password(),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Text(
+                    'Role ',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      foreground: Paint()
+                        ..shader = const LinearGradient(
+                          colors: [Colors.black87, Colors.yellow],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: [0.0, 1.0],
+                        ).createShader(
+                            const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
+                    ),
+                  ),
+                  const Text(
+                    '*',
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                ],
+              ),
+              Role(onChanged: (value) {
+                setState(() {
+                  role = value;
+                });
+              }),
+              const SizedBox(height: 30),
+              Center(
+                  child: Expanded(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(330, 45),
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blue),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      // Check the role and navigate accordingly
+                      if (role == 'enthusiast') {
+                        Navigator.pushNamed(context, '/userPage');
+                      } else if (role == 'poet') {
+                        Navigator.pushNamed(context, '/mainAdminPage');
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Form not submitted'),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text(
+                    'Sign Up',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 27),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Divider(
-                  thickness: 0.8,
-                  color: Colors.grey.withOpacity(0.6),
-                ),
-              )
+              )),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()));
+                  },
+                  child: const Text(
+                    'Already have an account? Login here',
+                    style: TextStyle(color: Colors.blue),
+                  ))
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {},
-                icon: Image.asset('assets/images/download.png', height: 20.0),
-                label: const Text('sign up with google'),
-              )
-            ],
-          )
-        ],
-      ),
-    );
+        ));
   }
 }
