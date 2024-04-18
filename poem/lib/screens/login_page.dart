@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
       if (value!.isEmpty) {
         return 'Please enter your password';
       }
-      // You can add more complex password validation logic here
+
       return null;
     },
   );
@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
       if (value!.isEmpty) {
         return 'Please enter your username';
       }
-      // You can add more complex username validation logic here
+
       return null;
     },
   );
