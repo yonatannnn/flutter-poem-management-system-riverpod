@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:poem/screens/welcome_page.dart';
 
@@ -39,12 +37,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  File? _image;
-  File? pickedImage;
-  String email = 'adeyeshi@gmail.com';
-  late final Function(int) onDelete;
-  late final Function(int) onFavorite;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
