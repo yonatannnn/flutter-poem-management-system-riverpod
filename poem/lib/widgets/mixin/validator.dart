@@ -23,9 +23,37 @@ mixin class ValidationMixin {
     return null;
   }
 
+  String? titleValidation(String? value) {
+    if (value!.length < 10) {
+      return 'please expressive title!';
+    }
+    return null;
+  }
+
+  String? authorValidation(String? value) {
+    if (value!.isEmpty) {
+      return 'please author Name !';
+    }
+    return null;
+  }
+
+  String? peomValidation(String? value) {
+    if (value!.length < 20) {
+      return 'please make the poem understandable';
+    }
+    return null;
+  }
+
   String? roleValidation(String? value) {
     if (value! != 'poet' && value != 'enthusiast') {
       return 'please tell us about yourself';
+    }
+    return null;
+  }
+
+  String? genreValidation(String? value) {
+    if (value! != 'narrative' && value != 'dramatic' && value != 'lyric') {
+      return 'choose from the hinted genres';
     }
     return null;
   }

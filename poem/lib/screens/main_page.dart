@@ -1,9 +1,14 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:poem/screens/welcome_page.dart';
 
+import 'about.dart';
+import 'add_poem.dart';
+import 'contacts.dart';
+import 'favorites.dart';
 import 'poem_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -28,6 +33,8 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.grey[200]),
       home: const MyHomePage(),
       routes: {
+        '/contact': (context) => const Contact(),
+        '/about': (context) => const About(),
         '/welcome': (context) => const Welcome(),
       },
     );
@@ -48,16 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
   late final Function(int) onDelete;
   late final Function(int) onFavorite;
   final ImagePicker imagePicker = ImagePicker();
-  Future _getImage() async {
-    final pickedImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    if (pickedImage != null) {
-      setState(() {
-        _image = File(pickedImage.path);
-      });
-    }
-  }
 
   List<Poem> poems = [
     Poem(
@@ -76,6 +73,45 @@ class _MyHomePageState extends State<MyHomePage> {
         genre: 'dramatic',
         content: 'Content 3'),
   ];
+  List<Poem> favoritePoems = [];
+
+  Future _getImage() async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      setState(() {
+        _image = File(pickedImage.path);
+      });
+    }
+  }
+
+  void deletePoem(int index) {
+    setState(() {
+      poems.removeAt(index);
+    });
+  }
+
+  List<Poem> _filteredPoems = [];
+  void searchByTitle(String query) {
+    setState(() {
+      _filteredPoems = poems
+          .where(
+              (poem) => poem.title.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
+
+  void addToFavorites(int index) {
+    setState(() {
+      final poem = poems[index];
+      if (favoritePoems.contains(poem)) {
+        favoritePoems.remove(poem);
+      } else {
+        favoritePoems.add(poem);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
           ),
+          onChanged: searchByTitle,
         ),
         actions: [
           IconButton(
@@ -151,10 +188,33 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      body: PoemListScreen(
+        poems: _filteredPoems.isNotEmpty ? _filteredPoems : poems,
+        onDelete: deletePoem,
+        onFavorite: addToFavorites,
+        favoritePoems: favoritePoems,
+      ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add a poem',
         backgroundColor: Colors.blueGrey,
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AddPoemDialog(
+                onSave: (title, author, genre, content) {
+                  setState(() {
+                    poems.add(Poem(
+                        title: title,
+                        author: author,
+                        genre: genre,
+                        content: content));
+                  });
+                },
+              );
+            },
+          );
+        },
         child: const Icon(
           Icons.add,
           color: Colors.white,
@@ -176,6 +236,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             label: 'My Favorite')
       ],
+      onTap: (index) {
+        if (index == 1) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    MyFavoritesScreen(favoritePoems: favoritePoems)),
+          );
+        }
+      },
     );
   }
 }
