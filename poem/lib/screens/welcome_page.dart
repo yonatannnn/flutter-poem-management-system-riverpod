@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:poem/screens/login_page.dart';
 import 'package:poem/screens/sign_up_page.dart';
@@ -62,41 +60,6 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
-                AnimatedBuilder(
-                  animation: _controller!.view,
-                  builder: (_builderContext, _child) {
-                    return Transform.rotate(
-                      angle: _controller!.value * 2 * pi,
-                      child: _child,
-                    );
-                  },
-                  child: RichText(
-                    text: const TextSpan(
-                        text: 'Let\'s ',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 255, 38, 0),
-                          fontSize: 40,
-                          fontWeight: FontWeight.w900,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'know ',
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 40,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                          TextSpan(
-                              text: 'you!',
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 40,
-                                fontWeight: FontWeight.w900,
-                              ))
-                        ]),
-                  ),
-                )
               ],
             ),
           ),
@@ -121,6 +84,9 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
               ),
             )
           ],
+        ),
+        const SizedBox(
+          height: 10,
         )
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poem/widgets/mixin/validator.dart';
 
 class Role extends StatefulWidget {
   final void Function(String?) onChanged;
@@ -8,7 +9,7 @@ class Role extends StatefulWidget {
   State<Role> createState() => _RoleState();
 }
 
-class _RoleState extends State<Role> {
+class _RoleState extends State<Role> with ValidationMixin {
   final TextEditingController roleController = TextEditingController();
   String? roleError;
   String? role;
@@ -30,9 +31,13 @@ class _RoleState extends State<Role> {
           color: Colors.black87,
         ),
         onChanged: (value) {
-          setState(() {});
+          setState(() {
+            roleError = roleValidation(value);
+            role = value;
+          });
           widget.onChanged(value);
         },
+        validator: roleValidation,
       ),
     );
   }

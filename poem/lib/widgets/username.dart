@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poem/widgets/mixin/validator.dart';
 
 class Username extends StatefulWidget {
   const Username({super.key});
@@ -8,15 +9,15 @@ class Username extends StatefulWidget {
   }
 }
 
-class _usernameState extends State<Username> {
+class _usernameState extends State<Username> with ValidationMixin {
   final TextEditingController usernameController = TextEditingController();
   String? usernameError;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(right: 10),
-        child: TextFormField(
+      padding: const EdgeInsets.only(right: 10),
+      child: TextFormField(
           controller: usernameController,
           decoration: InputDecoration(
             prefixIcon: const Icon(
@@ -32,8 +33,11 @@ class _usernameState extends State<Username> {
             color: Colors.black87,
           ),
           onChanged: (value) {
-            setState(() {});
+            setState(() {
+              usernameError = usernameValidation(value);
+            });
           },
-        ));
+          validator: usernameValidation),
+    );
   }
 }

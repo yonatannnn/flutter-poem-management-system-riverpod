@@ -4,6 +4,7 @@ import 'package:poem/screens/contacts.dart';
 import 'package:poem/screens/login_page.dart';
 import 'package:poem/screens/main_page.dart';
 import 'package:poem/screens/sign_up_page.dart';
+import 'package:poem/screens/user_screen.dart';
 import 'package:poem/screens/welcome_page.dart';
 
 void main() {
@@ -25,6 +26,7 @@ class Myapp extends StatelessWidget {
         '/welcome': (context) => const Welcome(),
         '/contact': (context) => const Contact(),
         '/about': (context) => const About(),
+        '/userPage': (context) => UserApp(),
         '/mainAdminPage': (context) => const MyApp(),
       },
     );

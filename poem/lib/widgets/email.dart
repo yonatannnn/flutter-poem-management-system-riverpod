@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poem/widgets/mixin/validator.dart';
 
 class Email extends StatefulWidget {
   final Function(String) onEmailChanged;
@@ -9,7 +10,7 @@ class Email extends StatefulWidget {
   State<Email> createState() => _EmailState();
 }
 
-class _EmailState extends State<Email> {
+class _EmailState extends State<Email> with ValidationMixin {
   String? emailError;
   final TextEditingController emailController = TextEditingController();
 
@@ -34,7 +35,9 @@ class _EmailState extends State<Email> {
           color: Colors.black87,
         ),
         onChanged: (value) {
-          setState(() {});
+          setState(() {
+            emailError = emailValidation(value);
+          });
           widget.onEmailChanged(value);
         },
       ),

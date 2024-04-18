@@ -19,6 +19,14 @@ class _SignUpState extends State<SignUp> with ValidationMixin {
   final _formKey = GlobalKey<FormState>();
   String? selectedRole;
   String? role;
+  // String? usernameError;
+  // String? emailError;
+  // String? passwordError;
+
+  // final username = ;
+  // final email =
+
+  // TextFormField password =
 
   @override
   Widget build(BuildContext context) {

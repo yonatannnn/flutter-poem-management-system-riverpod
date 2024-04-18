@@ -55,7 +55,9 @@ class _MyHomePageState extends State<MyHomePage> {
   late final Function(int) onDelete;
   late final Function(int) onFavorite;
   final ImagePicker imagePicker = ImagePicker();
-
+  // final _box = Hive.box('mybox');
+  // final _favBox = Hive.box('favbox');
+  // PoemData db = PoemData();
   List<Poem> poems = [
     Poem(
         title: 'Poem 1',
@@ -74,6 +76,19 @@ class _MyHomePageState extends State<MyHomePage> {
         content: 'Content 3'),
   ];
   List<Poem> favoritePoems = [];
+
+  // @override
+  // void initState() {
+  //   if (_box.get('POEM') == null) {
+  //     createInitialPeomData();
+  //   }
+  //   if (_favBox.get('FAV') == null) {
+  //     createInitialFav();
+  //   } else {
+  //     loadPoem();
+  //     loadFav();
+  //   }
+  // }
 
   Future _getImage() async {
     final pickedImage =
