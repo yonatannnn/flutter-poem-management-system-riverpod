@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:poem/screens/home_page.dart';
+import 'package:poem/screens/sign_up_page.dart';
 import 'package:poem/widgets/custom_widget.dart';
+import 'package:poem/widgets/password.dart';
+import 'package:poem/widgets/role.dart';
+import 'package:poem/widgets/username.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,70 +14,18 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final password = TextFormField(
-    decoration: InputDecoration(
-      prefixIcon: const Icon(
-        Icons.lock,
-        color: Colors.red,
-      ),
-      labelText: 'Password',
-      border: const OutlineInputBorder(),
-      labelStyle: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 20,
-        foreground: Paint()
-          ..shader = const LinearGradient(
-            colors: [Colors.black54, Colors.white],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0.0, 1.0],
-          ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
-      ),
-    ),
-    style: const TextStyle(
-      color: Colors.black87,
-    ),
-    obscureText: true,
-    validator: (value) {
-      if (value!.isEmpty) {
-        return 'Please enter your password';
-      }
+  String? role;
 
-      return null;
-    },
-  );
+  late bool _passwordVisible = true;
 
-  final username = TextFormField(
-    decoration: InputDecoration(
-      prefixIcon: const Icon(
-        Icons.person,
-        color: Colors.blue,
-      ),
-      labelText: 'Username',
-      border: const OutlineInputBorder(),
-      labelStyle: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w800,
-        foreground: Paint()
-          ..shader = const LinearGradient(
-            colors: [Colors.blue, Colors.green],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0.0, 1.0],
-          ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
-      ),
-    ),
-    style: const TextStyle(
-      color: Colors.black87,
-    ),
-    validator: (value) {
-      if (value!.isEmpty) {
-        return 'Please enter your username';
-      }
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _passwordVisible = !_passwordVisible;
+    });
+  }
 
-      return null;
-    },
-  );
   @override
   Widget build(BuildContext context) {
     return CustomWidget(
@@ -109,77 +60,156 @@ class _LoginPageState extends State<LoginPage> {
 
   Form _formMethod(BuildContext context) {
     return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          const Text(
-            'Welcome to the Poetry Haven!',
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 25,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          username,
-          const Padding(padding: EdgeInsets.all(4.0)),
-          password,
-          const SizedBox(height: 20),
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  // API calls here.
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                  );
-                }
-              },
-              child: const Text('Sign In'),
-            ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Divider(
-                  thickness: 0.8,
-                  color: Colors.grey.withOpacity(0.6),
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const SizedBox(
+                height: 30,
+              ),
+              const Text(
+                'Welcome to the Poetry Haven!',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 0,
-                  horizontal: 10,
-                ),
-                child: Text(
-                  'sign in with',
-                  style: TextStyle(
-                    color: Colors.black87,
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                children: [
+                  Text(
+                    'Username ',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      foreground: Paint()
+                        ..shader = const LinearGradient(
+                          colors: [Colors.black87, Colors.yellow],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: [0.0, 1.0],
+                        ).createShader(
+                            const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
+                    ),
+                  ),
+                  const Text(
+                    '*',
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                ],
+              ),
+              const Username(),
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                children: [
+                  Text(
+                    'Role ',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      foreground: Paint()
+                        ..shader = const LinearGradient(
+                          colors: [Colors.black87, Colors.yellow],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: [0.0, 1.0],
+                        ).createShader(
+                            const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
+                    ),
+                  ),
+                  const Text(
+                    '*',
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                ],
+              ),
+              Role(onChanged: (value) {
+                setState(() {
+                  role = value;
+                });
+              }),
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                children: [
+                  Text(
+                    'Password ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      foreground: Paint()
+                        ..shader = const LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 33, 240, 243),
+                            Color.fromARGB(255, 175, 97, 76)
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: [0.0, 1.0],
+                        ).createShader(
+                            const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
+                    ),
+                  ),
+                  const Text(
+                    '*',
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                ],
+              ),
+              const Password(),
+              const SizedBox(height: 50),
+              Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(330, 45),
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
+                  ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      // Check the role and navigate accordingly
+                      if (role == 'enthusiast') {
+                        Navigator.pushNamed(context, '/userPage');
+                      } else if (role == 'poet') {
+                        Navigator.pushNamed(context, '/mainAdminPage');
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Form not submitted'),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text(
+                    'Sign In',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 27),
                   ),
                 ),
               ),
-              Expanded(
-                child: Divider(
-                  thickness: 0.8,
-                  color: Colors.grey.withOpacity(0.6),
-                ),
-              )
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignUp()));
+                  },
+                  child: const Text(
+                    'Don\'t have an account? sign up here',
+                    style: TextStyle(color: Colors.blue),
+                  ))
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {},
-                icon: Image.asset('assets/images/download.png', height: 24.0),
-                label: const Text('sign in with google'),
-              )
-            ],
-          )
-        ],
-      ),
-    );
+        ));
   }
 }
