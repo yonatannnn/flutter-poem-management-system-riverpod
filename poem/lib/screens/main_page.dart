@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:poem/screens/welcome_page.dart';
+
+import 'poem_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -37,6 +42,41 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  File? _image;
+  File? pickedImage;
+  String email = 'adeyeshi@gmail.com';
+  late final Function(int) onDelete;
+  late final Function(int) onFavorite;
+  final ImagePicker imagePicker = ImagePicker();
+  Future _getImage() async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      setState(() {
+        _image = File(pickedImage.path);
+      });
+    }
+  }
+
+  List<Poem> poems = [
+    Poem(
+        title: 'Poem 1',
+        author: 'Author 1',
+        genre: 'narrative',
+        content: 'Content 1'),
+    Poem(
+        title: 'Poem 2',
+        author: 'Author 2',
+        genre: 'lyric',
+        content: 'Content 2'),
+    Poem(
+        title: 'Poem 3',
+        author: 'Author 3',
+        genre: 'dramatic',
+        content: 'Content 3'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +112,44 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               icon: const Icon(Icons.logout))
         ],
+      ),
+      drawer: Drawer(
+        backgroundColor: Colors.lightGreenAccent,
+        child: ListView(
+          padding: const EdgeInsets.all(8.0),
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: const Text('Aderajew Yeshi'),
+              accountEmail: Text(email),
+              currentAccountPicture: GestureDetector(
+                onTap: _getImage,
+                child: CircleAvatar(
+                  backgroundImage:
+                      _image != null ? Image.file(_image!).image : null,
+                  child: _image == null ? const Icon(Icons.add_a_photo) : null,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.info,
+              ),
+              title: const Text('About us'),
+              onTap: () {
+                Navigator.pushNamed(context, '/about');
+              },
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.contact_mail,
+              ),
+              title: const Text('Contact us'),
+              onTap: () {
+                Navigator.pushNamed(context, '/contact');
+              },
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add a poem',
