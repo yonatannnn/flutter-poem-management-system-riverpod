@@ -55,7 +55,7 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
                   child: const Text(
                     'Welcome!',
                     style: TextStyle(
-                      fontSize: 80,
+                      fontSize: 70,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
