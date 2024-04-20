@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:poem/screens/about.dart';
 import 'package:poem/screens/contacts.dart';
+import 'package:poem/screens/user_favorite.dart';
 import 'package:poem/screens/welcome_page.dart';
 
-import 'favorites.dart';
-import 'poem_page.dart';
+import 'user_poem.dart';
 
 class UserApp extends StatelessWidget {
   @override
@@ -44,62 +44,45 @@ class _UserScreenState extends State<UserScreen> {
   late final Function(int) onDelete;
   late final Function(int) onFavorite;
   final ImagePicker imagePicker = ImagePicker();
-  // final _box = Hive.box('mybox');
-  // final _favBox = Hive.box('favbox');
-  // PoemData db = PoemData();
-  List<Poem> poems = [
-    Poem(
+
+  List<UserPoems> poems = [
+    UserPoems(
         title: 'Poem 1',
         author: 'Author 1',
         genre: 'narrative',
         content: 'Content 1'),
-    Poem(
+    UserPoems(
         title: 'Poem 2',
         author: 'Author 2',
         genre: 'lyric',
         content: 'Content 2'),
-    Poem(
+    UserPoems(
         title: 'Poem 3',
         author: 'Author 3',
         genre: 'dramatic',
         content: 'Content 3'),
-    Poem(
+    UserPoems(
         title: 'Poem 3',
         author: 'Author 3',
         genre: 'dramatic',
         content: 'Content 3'),
-    Poem(
+    UserPoems(
         title: 'Poem 3',
         author: 'Author 3',
         genre: 'dramatic',
         content: 'Content 3'),
-    Poem(
+    UserPoems(
         title: 'Poem 3',
         author: 'Author 3',
         genre: 'dramatic',
         content: 'Content 3'),
-    Poem(
-        title: 'Poem 3',
-        author: 'Author 3',
-        genre: 'dramatic',
-        content: 'Content 3'),
-    Poem(
-        title: 'Poem 3',
-        author: 'Author 3',
-        genre: 'dramatic',
-        content: 'Content 3'),
-    Poem(
-        title: 'Poem 3',
-        author: 'Author 3',
-        genre: 'dramatic',
-        content: 'Content 3'),
-    Poem(
+    UserPoems(
         title: 'Poem 3',
         author: 'Author 3',
         genre: 'dramatic',
         content: 'Content 3'),
   ];
-  List<Poem> favoritePoems = [];
+  List<UserPoems> favoritePoems = [];
 
   Future _getImage() async {
     final pickedImage =
@@ -112,18 +95,13 @@ class _UserScreenState extends State<UserScreen> {
     }
   }
 
-  void deletePoem(int index) {
-    setState(() {
-      poems.removeAt(index);
-    });
-  }
-
-  List<Poem> _filteredPoems = [];
+  List<UserPoems> _filteredPoems = [];
   void searchByTitle(String query) {
     setState(() {
       _filteredPoems = poems
           .where(
               (poem) => poem.title.toLowerCase().contains(query.toLowerCase()))
+          .cast<UserPoems>()
           .toList();
     });
   }
@@ -156,7 +134,7 @@ class _UserScreenState extends State<UserScreen> {
             filled: true,
             fillColor: Colors.grey[300],
             hintText: 'Search by title...',
-            prefixIcon: Icon(Icons.search),
+            prefixIcon: const Icon(Icons.search),
             border: OutlineInputBorder(
               // Border
               borderRadius: BorderRadius.circular(10.0),
@@ -167,13 +145,6 @@ class _UserScreenState extends State<UserScreen> {
           ),
           onChanged: searchByTitle,
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/welcome');
-              },
-              icon: const Icon(Icons.logout))
-        ],
       ),
       drawer: Drawer(
         backgroundColor: const Color.fromARGB(255, 111, 191, 215),
@@ -212,12 +183,20 @@ class _UserScreenState extends State<UserScreen> {
                 Navigator.pushNamed(context, '/contact');
               },
             ),
+            ListTile(
+              leading: const Icon(
+                Icons.logout,
+              ),
+              title: const Text('log out'),
+              onTap: () {
+                Navigator.pushNamed(context, '/welcome');
+              },
+            ),
           ],
         ),
       ),
-      body: PoemListScreen(
+      body: UserPoemListScreen(
         poems: _filteredPoems.isNotEmpty ? _filteredPoems : poems,
-        onDelete: deletePoem,
         onFavorite: addToFavorites,
         favoritePoems: favoritePoems,
       ),
@@ -246,7 +225,7 @@ class _UserScreenState extends State<UserScreen> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    MyFavoritesScreen(favoritePoems: favoritePoems)),
+                    UserFavorites(favoritePoems: favoritePoems)),
           );
         }
       },

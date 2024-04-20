@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poem/screens/login_page.dart';
 import 'package:poem/screens/sign_up_page.dart';
-import 'package:poem/widgets/custom_button.dart';
 import 'package:poem/widgets/custom_widget.dart';
 
 class Welcome extends StatefulWidget {
@@ -36,14 +35,14 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
 
   Column _welcomeColumn() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Flexible(
           child: Center(
             child: Column(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ShaderMask(
@@ -66,53 +65,54 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
                 ]),
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      Color.fromARGB(255, 4, 213, 250)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                ),
-                child: Text('Sign In'),
-              ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginPage()),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size(330, 60),
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            textStyle: const TextStyle(fontSize: 20), // Text style
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14), // Button border radius
             ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignUp()),
-                  );
-                },
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.blue),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                ),
-                child: Text('Sign Up'),
-              ),
-            ),
-          ],
+            elevation: 4,
+          ),
+          child: const Text(
+            'Log In',
+          ),
         ),
+        const SizedBox(height: 40),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SignUp()),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size(330, 60),
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            textStyle: const TextStyle(fontSize: 20), // Text style
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14), // Button border radius
+            ),
+            elevation: 4,
+          ),
+          child: const Text(
+            'Sign Up',
+          ),
+        ),
+        const SizedBox(
+          height: 70,
+        )
       ],
     );
   }

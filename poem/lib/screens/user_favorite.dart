@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:poem/screens/user_poem.dart';
+import 'package:poem/widgets/user_poem_widget.dart';
 
-import '../widgets/poem_widget.dart';
-import 'poet_poem.dart';
+class UserFavorites extends StatelessWidget {
+  final List<UserPoems> favoritePoems;
 
-class MyFavoritesScreen extends StatelessWidget {
-  final List<Poem> favoritePoems;
-
-  const MyFavoritesScreen({Key? key, required this.favoritePoems})
+  const UserFavorites({Key? key, required this.favoritePoems})
       : super(key: key);
 
   @override
@@ -21,13 +20,10 @@ class MyFavoritesScreen extends StatelessWidget {
           itemCount: favoritePoems.length,
           itemBuilder: (context, index) {
             final poem = favoritePoems[index];
-            return Poems(
+            return PoemUser(
               poemIndex: '${index + 1}',
               poemTitle: poem.title,
               poemAuth: poem.author,
-              onPressedDelete: () {
-                favoritePoems.remove(poem);
-              },
               onPressedFavorite: () {
                 favoritePoems.add(poem);
               },
@@ -42,7 +38,6 @@ class MyFavoritesScreen extends StatelessWidget {
                   ),
                 );
               },
-              onPressedEdit: () {},
             );
           },
           separatorBuilder: (context, index) => const Divider(),

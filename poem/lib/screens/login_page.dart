@@ -4,7 +4,8 @@ import 'package:poem/widgets/custom_widget.dart';
 import 'package:poem/widgets/password.dart';
 import 'package:poem/widgets/role.dart';
 import 'package:poem/widgets/username.dart';
-import 'main_page.dart';
+
+import 'admin_main_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -193,7 +194,7 @@ class _LoginPageState extends State<LoginPage> {
                     }
                   },
                   child: const Text(
-                    'Sign In',
+                    'Log In',
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

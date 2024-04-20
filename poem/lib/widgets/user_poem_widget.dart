@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
 
-class Poems extends StatefulWidget {
+class PoemUser extends StatefulWidget {
   final String poemTitle;
   final String poemAuth;
   final String poemIndex;
-  final VoidCallback onPressedDelete;
+
   final VoidCallback onPressedFavorite;
   final VoidCallback onTap;
-  final VoidCallback onPressedEdit;
 
-  const Poems({
+  const PoemUser({
     Key? key,
     required this.poemIndex,
     required this.poemTitle,
     required this.poemAuth,
-    required this.onPressedDelete,
     required this.onPressedFavorite,
-    required this.onPressedEdit,
     required this.onTap,
   }) : super(key: key);
 
   @override
-  State<Poems> createState() => _PoemsState();
+  State<PoemUser> createState() => _PoemsState();
 }
 
-class _PoemsState extends State<Poems> {
+class _PoemsState extends State<PoemUser> {
   bool isFavorite = false;
   @override
   Widget build(BuildContext context) {
@@ -73,14 +70,6 @@ class _PoemsState extends State<Poems> {
             ),
             Row(
               children: [
-                IconButton(
-                  icon: const Icon(Icons.edit),
-                  onPressed: widget.onPressedEdit,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: widget.onPressedDelete,
-                ),
                 IconButton(
                   icon: Icon(
                     Icons.favorite,

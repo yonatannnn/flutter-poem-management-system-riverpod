@@ -9,7 +9,7 @@ import 'about.dart';
 import 'add_poem.dart';
 import 'contacts.dart';
 import 'favorites.dart';
-import 'poem_page.dart';
+import 'poet_poem.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -112,6 +112,22 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void editPoem(int index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return EditPoemDialog(
+          initialPoem: poems[index],
+          onEdit: (editedPoem) {
+            setState(() {
+              poems[index] = editedPoem;
+            });
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,14 +156,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           onChanged: searchByTitle,
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Welcome()));
-              },
-              icon: const Icon(Icons.logout))
-        ],
       ),
       drawer: Drawer(
         backgroundColor: Colors.lightGreenAccent,
@@ -184,6 +192,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushNamed(context, '/contact');
               },
             ),
+            ListTile(
+                title: const Text('Log Out'),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Welcome()));
+                },
+                leading: const Icon(Icons.logout))
           ],
         ),
       ),
@@ -191,6 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
         poems: _filteredPoems.isNotEmpty ? _filteredPoems : poems,
         onDelete: deletePoem,
         onFavorite: addToFavorites,
+        onEdit: editPoem,
         favoritePoems: favoritePoems,
       ),
       floatingActionButton: FloatingActionButton(
@@ -246,5 +262,99 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       },
     );
+  }
+}
+
+class EditPoemDialog extends StatefulWidget {
+  final Poem initialPoem;
+  final void Function(Poem) onEdit;
+
+  const EditPoemDialog(
+      {Key? key, required this.initialPoem, required this.onEdit})
+      : super(key: key);
+
+  @override
+  _EditPoemDialogState createState() => _EditPoemDialogState();
+}
+
+class _EditPoemDialogState extends State<EditPoemDialog> {
+  late TextEditingController _titleController;
+  late TextEditingController _authorController;
+  late TextEditingController _genreController;
+  late TextEditingController _contentController;
+
+  @override
+  void initState() {
+    super.initState();
+    _titleController = TextEditingController(text: widget.initialPoem.title);
+    _authorController = TextEditingController(text: widget.initialPoem.author);
+    _genreController = TextEditingController(text: widget.initialPoem.genre);
+    _contentController =
+        TextEditingController(text: widget.initialPoem.content);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Edit Poem'),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: _titleController,
+              decoration: const InputDecoration(labelText: 'Title'),
+            ),
+            TextField(
+              controller: _authorController,
+              decoration: const InputDecoration(labelText: 'Author'),
+            ),
+            TextField(
+              controller: _genreController,
+              decoration: const InputDecoration(labelText: 'Genre'),
+            ),
+            TextFormField(
+              controller: _contentController,
+              decoration: const InputDecoration(labelText: 'Content'),
+              maxLines: null,
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          style: TextButton.styleFrom(backgroundColor: Colors.blue),
+          onPressed: () {
+            final editedPoem = Poem(
+              title: _titleController.text,
+              author: _authorController.text,
+              genre: _genreController.text,
+              content: _contentController.text,
+            );
+            widget.onEdit(editedPoem);
+            Navigator.of(context).pop();
+          },
+          child: const Text(
+            'Save',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _authorController.dispose();
+    _genreController.dispose();
+    _contentController.dispose();
+    super.dispose();
   }
 }

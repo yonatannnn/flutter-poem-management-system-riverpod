@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import '../widgets/poem_widget.dart';
 import '../widgets/profile_widget.dart';
 
@@ -8,13 +8,14 @@ class PoemListScreen extends StatefulWidget {
   final Function(int) onDelete;
   final Function(int) onFavorite;
   final List<Poem> favoritePoems;
-
+  final void Function(int) onEdit;
   const PoemListScreen({
     super.key,
     required this.poems,
     required this.onDelete,
     required this.onFavorite,
     required this.favoritePoems,
+    required this.onEdit,
   });
   @override
   State<StatefulWidget> createState() {
@@ -30,25 +31,29 @@ class _PoemListScreenState extends State<PoemListScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Column(
         children: [
-          Profile(),
-          SizedBox(height: 10),
+          const Profile(),
+          const SizedBox(height: 10),
           Expanded(
             child: ListView.separated(
               itemCount: widget.poems.length,
-              separatorBuilder: (context, index) => Divider(),
+              separatorBuilder: (context, index) => const Divider(),
               itemBuilder: (context, index) {
                 final poem = widget.poems[index];
                 return Poems(
-                  poemTitle: '${index + 1}',
-                  pubDate: poem.author,
+                  poemIndex: '${index + 1}',
+                  poemTitle: poem.title,
+                  poemAuth: poem.author,
                   onPressedDelete: () {
                     widget.onDelete(index);
                   },
                   onPressedFavorite: () {
                     widget.onFavorite(index);
+                  },
+                  onPressedEdit: () {
+                    widget.onEdit(index); // Call onEdit callback
                   },
                   onTap: () {
                     Navigator.push(
@@ -96,7 +101,7 @@ class PoemDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Read Poem',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
@@ -112,7 +117,7 @@ class PoemDetailScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.grey[400],
                     borderRadius: BorderRadius.circular(20),
@@ -121,9 +126,9 @@ class PoemDetailScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Padding(
-                        padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
+                        padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
                         child: Text(
-                          poem.author,
+                          poem.title,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Colors.blue,
@@ -132,28 +137,50 @@ class PoemDetailScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 15),
                       Padding(
-                        padding: EdgeInsets.fromLTRB(10, 0, 10, 20),
-                        child: Text(
-                          poem.content,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black,
-                          ),
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              poem.content,
+                              textAlign: TextAlign.start,
+                              style: const TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [const Text('by: '), Text(poem.author)],
+                            ),
+                            const SizedBox(
+                              height: 6,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text('genre: '),
+                                Text(poem.genre)
+                              ],
+                            )
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(30, 30, 30, 30),
-                  margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                  padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
+                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                  child: Column(
+                  child: const Column(
                     children: [
                       Text(
                         'Comments',

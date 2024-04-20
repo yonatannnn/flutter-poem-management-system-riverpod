@@ -9,7 +9,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   String userName = 'Y O N A T A N';
-  String picturePath = 'assets/images/ephrata.jpg';
+  String picturePath = 'assets/images/backg.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -18,22 +18,22 @@ class _ProfileState extends State<Profile> {
         color: Colors.grey[400],
         borderRadius: BorderRadius.circular(10),
       ),
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(
+          const CircleAvatar(
             radius: 28,
-            backgroundImage: AssetImage('assets/images/ephrata.jpg'),
+            backgroundImage: AssetImage('assets/images/backg.jpg'),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
             child: Text(
               '$userName',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
         ],
