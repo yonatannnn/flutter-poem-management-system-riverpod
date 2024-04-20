@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:poem/widgets/mixin/validator.dart';
+import 'package:poem/screens/mixin/validator.dart';
 
 class Username extends StatefulWidget {
   const Username({super.key});

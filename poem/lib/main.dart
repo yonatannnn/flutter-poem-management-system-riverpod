@@ -21,12 +21,12 @@ class Myapp extends StatelessWidget {
       theme: ThemeData.dark(),
       home: const Welcome(),
       routes: {
-        '/welcome': (context) => const Welcome(),
         '/signup': (context) => const SignUp(),
         '/signin': (context) => const LoginPage(),
+        '/welcome': (context) => const Welcome(),
         '/contact': (context) => const Contact(),
-        '/userPage': (context) => UserApp(),
         '/about': (context) => const About(),
+        '/userPage': (context) => UserApp(),
         '/mainAdminPage': (context) => const MyApp(),
       },
     );
