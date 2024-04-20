@@ -132,6 +132,7 @@ class AddPoemDialogState extends State<AddPoemDialog> with ValidationMixin {
           child: const Text(
             'Save',
             style: TextStyle(
+              
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 17,
