@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.grey[200]),
       home: const MyHomePage(),
       routes: {
-        '/contact': (context) => const Contact(),
         '/about': (context) => const About(),
+        '/contact': (context) => const Contact(),
         '/welcome': (context) => const Welcome(),
       },
     );
