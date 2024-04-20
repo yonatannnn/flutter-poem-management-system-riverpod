@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/mixin/validator.dart';
+import 'mixin/validator.dart';
 
 class AddPoemDialog extends StatefulWidget {
   final Function(String, String, String, String) onSave;
@@ -86,10 +86,8 @@ class AddPoemDialogState extends State<AddPoemDialog> with ValidationMixin {
                 labelText: 'Content',
                 hintText: 'Your poem please ...',
                 hintStyle: TextStyle(color: Colors.grey.withOpacity(0.5)),
-                labelStyle: TextStyle(
-                    color: contentError != null
-                        ? Colors.red
-                        : null), // Change label color to red if there's an error
+                labelStyle:
+                    TextStyle(color: contentError != null ? Colors.red : null),
                 errorText: contentError,
               ),
               onChanged: (value) {
@@ -99,7 +97,7 @@ class AddPoemDialogState extends State<AddPoemDialog> with ValidationMixin {
                 });
               },
               maxLines: null,
-              validator: peomValidation, // Apply poem content validation
+              validator: peomValidation,
             ),
           ],
         ),
