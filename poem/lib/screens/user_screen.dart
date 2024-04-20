@@ -44,7 +44,9 @@ class _UserScreenState extends State<UserScreen> {
   late final Function(int) onDelete;
   late final Function(int) onFavorite;
   final ImagePicker imagePicker = ImagePicker();
-
+  // final _box = Hive.box('mybox');
+  // final _favBox = Hive.box('favbox');
+  // PoemData db = PoemData();
   List<Poem> poems = [
     Poem(
         title: 'Poem 1',
@@ -56,6 +58,41 @@ class _UserScreenState extends State<UserScreen> {
         author: 'Author 2',
         genre: 'lyric',
         content: 'Content 2'),
+    Poem(
+        title: 'Poem 3',
+        author: 'Author 3',
+        genre: 'dramatic',
+        content: 'Content 3'),
+    Poem(
+        title: 'Poem 3',
+        author: 'Author 3',
+        genre: 'dramatic',
+        content: 'Content 3'),
+    Poem(
+        title: 'Poem 3',
+        author: 'Author 3',
+        genre: 'dramatic',
+        content: 'Content 3'),
+    Poem(
+        title: 'Poem 3',
+        author: 'Author 3',
+        genre: 'dramatic',
+        content: 'Content 3'),
+    Poem(
+        title: 'Poem 3',
+        author: 'Author 3',
+        genre: 'dramatic',
+        content: 'Content 3'),
+    Poem(
+        title: 'Poem 3',
+        author: 'Author 3',
+        genre: 'dramatic',
+        content: 'Content 3'),
+    Poem(
+        title: 'Poem 3',
+        author: 'Author 3',
+        genre: 'dramatic',
+        content: 'Content 3'),
     Poem(
         title: 'Poem 3',
         author: 'Author 3',
@@ -119,14 +156,14 @@ class _UserScreenState extends State<UserScreen> {
             filled: true,
             fillColor: Colors.grey[300],
             hintText: 'Search by title...',
-            prefixIcon: const Icon(Icons.search),
+            prefixIcon: Icon(Icons.search),
             border: OutlineInputBorder(
               // Border
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide.none,
             ),
             contentPadding:
-                const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+                EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
           ),
           onChanged: searchByTitle,
         ),

@@ -26,80 +26,92 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return CustomWidget(
-      child: _welcomeColumn(),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: CustomWidget(
+        child: _welcomeColumn(),
+      ),
     );
   }
 
   Column _welcomeColumn() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Flexible(
           child: Center(
             child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ShaderMask(
-                  shaderCallback: (Rect bounds) {
-                    return const LinearGradient(
-                      colors: [Colors.blue, Colors.green],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      stops: [0.0, 1.0],
-                    ).createShader(bounds);
-                  },
-                  child: const Text(
-                    'Welcome!',
-                    style: TextStyle(
-                      fontSize: 70,
-                      fontWeight: FontWeight.w900,
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ShaderMask(
+                    shaderCallback: (Rect bounds) {
+                      return const LinearGradient(
+                        colors: [Colors.blue, Colors.green],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        stops: [0.0, 1.0],
+                      ).createShader(bounds);
+                    },
+                    child: const Text(
+                      'Welcome!',
+                      style: TextStyle(
+                        fontSize: 80,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                ]),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      Color.fromARGB(255, 4, 213, 250)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Expanded(
-              child: CustomButton(
-                buttonText: 'Sign in',
-                color: Color.fromARGB(255, 4, 213, 250),
-                onTap: LoginPage(),
+                child: Text('Sign In'),
               ),
             ),
+            const SizedBox(width: 20),
             Expanded(
-              child: CustomButton(
-                buttonText: 'Sign Up',
-                color: Colors.blue,
-                onTap: SignUp(),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUp()),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blue),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+                child: Text('Sign Up'),
               ),
-            )
+            ),
           ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        GestureDetector(
-          // onTap: () {
-          //   Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) => WelcomeImagePage()),
-          //   );
-          // },
-          child: Icon(
-            Icons.image,
-            size: 50,
-            color: Colors.blue,
-          ),
         ),
       ],
     );
