@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+//  contact page consisting of name, email, message and social media addresses
+
 class Contact extends StatelessWidget {
   const Contact({super.key});
 
