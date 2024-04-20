@@ -4,6 +4,7 @@ import 'package:poem/widgets/custom_widget.dart';
 import 'package:poem/widgets/password.dart';
 import 'package:poem/widgets/role.dart';
 import 'package:poem/widgets/username.dart';
+import 'main_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -178,7 +179,10 @@ class _LoginPageState extends State<LoginPage> {
                       if (role == 'enthusiast') {
                         Navigator.pushNamed(context, '/userPage');
                       } else if (role == 'poet') {
-                        Navigator.pushNamed(context, '/mainAdminPage');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MyApp()));
                       }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
