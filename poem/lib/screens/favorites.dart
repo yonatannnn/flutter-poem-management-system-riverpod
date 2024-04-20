@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-
+import '../widgets/poem_widget.dart';
 import 'poem_page.dart';
+import '../widgets/poem_widget.dart';
 
 class MyFavoritesScreen extends StatelessWidget {
   final List<Poem> favoritePoems;
 
-  const MyFavoritesScreen({super.key, required this.favoritePoems});
+  const MyFavoritesScreen({Key? key, required this.favoritePoems})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,27 +15,36 @@ class MyFavoritesScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('My Favorite Poems'),
       ),
-      body: ListView.builder(
-        itemCount: favoritePoems.length,
-        itemBuilder: (context, index) {
-          final poem = favoritePoems[index];
-          return ListTile(
-            leading: Text('${index + 1}'),
-            title: Text(poem.title),
-            subtitle: Text(poem.author),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PoemDetailScreen(
-                    poem: poem,
-                    filteredPoems: [],
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: ListView.separated(
+          itemCount: favoritePoems.length,
+          itemBuilder: (context, index) {
+            final poem = favoritePoems[index];
+            return Poems(
+              poemTitle: poem.title,
+              pubDate: poem.author,
+              onPressedDelete: () {
+                favoritePoems.remove(poem);
+              },
+              onPressedFavorite: () {
+                favoritePoems.add(poem);
+              },
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PoemDetailScreen(
+                      poem: poem,
+                      filteredPoems: [],
+                    ),
                   ),
-                ),
-              );
-            },
-          );
-        },
+                );
+              },
+            );
+          },
+          separatorBuilder: (context, index) => Divider(),
+        ),
       ),
       bottomNavigationBar: buildBottomNavigationBar(context),
     );
