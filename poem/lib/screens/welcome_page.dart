@@ -71,14 +71,14 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
           children: [
             Expanded(
               child: CustomButton(
-                buttonText: 'sign in',
+                buttonText: 'Sign in',
                 color: Color.fromARGB(255, 4, 213, 250),
                 onTap: LoginPage(),
               ),
             ),
             Expanded(
               child: CustomButton(
-                buttonText: 'sign Up',
+                buttonText: 'Sign Up',
                 color: Colors.blue,
                 onTap: SignUp(),
               ),
@@ -87,7 +87,20 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
         ),
         const SizedBox(
           height: 10,
-        )
+        ),
+        GestureDetector(
+          // onTap: () {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(builder: (context) => WelcomeImagePage()),
+          //   );
+          // },
+          child: Icon(
+            Icons.image,
+            size: 50,
+            color: Colors.blue,
+          ),
+        ),
       ],
     );
   }
