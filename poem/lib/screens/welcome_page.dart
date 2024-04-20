@@ -3,6 +3,8 @@ import 'package:poem/screens/login_page.dart';
 import 'package:poem/screens/sign_up_page.dart';
 import 'package:poem/widgets/custom_widget.dart';
 
+// A welcome page consisting of sign up and sign in options.
+
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
 

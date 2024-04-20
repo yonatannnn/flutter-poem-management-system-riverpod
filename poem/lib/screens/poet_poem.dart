@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../widgets/poem_widget.dart';
 import '../widgets/profile_widget.dart';
 
+// file consisting of lists of poems and navigations.
+
 class PoemListScreen extends StatefulWidget {
   final List<Poem> poems;
   final Function(int) onDelete;

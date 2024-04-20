@@ -19,6 +19,7 @@ class _SignUpState extends State<SignUp> with ValidationMixin {
   final _formKey = GlobalKey<FormState>();
   String? selectedRole;
   String? role;
+
   // String? usernameError;
   // String? emailError;
   // String? passwordError;
@@ -37,7 +38,7 @@ class _SignUpState extends State<SignUp> with ValidationMixin {
           const Expanded(
             flex: 1,
             child: SizedBox(
-              height: 5,
+              height: 4,
             ),
           ),
           Expanded(
