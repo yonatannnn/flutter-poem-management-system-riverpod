@@ -41,9 +41,7 @@ class _PasswordState extends State<Password> with ValidationMixin {
                 color: Colors.grey,
               ),
               onPressed: () {
-                setState(() {
-                  _passwordVisible = !_passwordVisible;
-                });
+                
               },
             ),
           ),

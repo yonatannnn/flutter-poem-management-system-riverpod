@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poem/screens/sign_up_page.dart';
 import 'package:poem/widgets/custom_widget.dart';
 import 'package:poem/widgets/password.dart';
@@ -7,14 +8,14 @@ import 'package:poem/widgets/username.dart';
 
 import 'admin_main_page.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   String? role;
 
@@ -176,7 +177,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // Check the role and navigate accordingly
                       if (role == 'enthusiast') {
                         Navigator.pushNamed(context, '/userPage');
                       } else if (role == 'poet') {
